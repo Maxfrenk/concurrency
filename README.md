@@ -1,2 +1,2 @@
-# concurrency
+# Concurrency
 Concurrent data structures
