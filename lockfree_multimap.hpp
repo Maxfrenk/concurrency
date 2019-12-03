@@ -4,6 +4,7 @@
 #include <atomic>
 #include <list>
 #include <algorithm>
+#include <vector>
 
 template<class key, class value, class hash_fct = std::hash<key> >
 class lockfree_multimap
