@@ -5,6 +5,7 @@
 #include <list>
 #include <shared_mutex>
 #include <iterator>
+#include <numeric>
 
 constexpr unsigned DEFAULT_NUM_BUCKETS = 19;
 
@@ -54,6 +55,12 @@ private:
             if(found_entry != data.end()) 
                 data.erase(found_entry);
         }
+
+        int get_size() const noexcept {
+            // Use shared lock to allow multiple readers
+            std::shared_lock<std::shared_timed_mutex> lock(mutex);
+            return data.size();
+        }
     };
 
     std::vector<std::unique_ptr<bucket>> _buckets;
@@ -90,5 +97,13 @@ public:
 
     void remove(const Key& key) {
         get_bucket(key).remove(key);
+    }
+
+    int get_size() const {
+        int bkt_sz = 0;
+        for(const std::unique_ptr<bucket>& bkt: _buckets) {
+            bkt_sz += bkt->get_size();
+        }
+        return bkt_sz;
     }
 };
