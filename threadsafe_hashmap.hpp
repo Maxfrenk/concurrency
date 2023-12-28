@@ -6,6 +6,7 @@
 #include <shared_mutex>
 #include <iterator>
 #include <numeric>
+#include <memory>
 
 constexpr unsigned DEFAULT_NUM_BUCKETS = 19;
 
