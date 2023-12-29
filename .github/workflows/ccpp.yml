@@ -15,7 +15,5 @@ jobs:
       run: make
     - name: make check
       run: make check
-    - name: run test
-      run: ./check
     #- name: make distcheck
     #  run: make distcheck
