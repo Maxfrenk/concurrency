@@ -16,6 +16,7 @@ jobs:
     - name: make check
       run: |
         make check
+        echo Running test...
         ./test
     #- name: make distcheck
     #  run: make distcheck
