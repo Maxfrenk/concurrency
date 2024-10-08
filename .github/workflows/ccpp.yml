@@ -15,8 +15,11 @@ jobs:
       run: make
     - name: make check
       run: |
-        make check
-        echo Running test...
-        ./test
+        make check_hashmap
+        echo Running test_hashmap...
+        ./test_hashmap
+        make check_queue
+        echo Running test_queue...
+        ./test_queue
     #- name: make distcheck
     #  run: make distcheck
