@@ -21,5 +21,8 @@ jobs:
         make check_queue
         echo Running test_queue...
         ./test_queue
+        make check_thread_pool
+        echo Running test_thread_pool...
+        ./check_thread_pool
     #- name: make distcheck
     #  run: make distcheck
