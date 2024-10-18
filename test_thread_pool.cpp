@@ -18,18 +18,17 @@ int main()
         std::cout << "segment_len: " << segment_len << std::endl;
         auto begin_itr = tens.begin();
         int tot_sum = 0;
+        std::vector<std::future<int> > futures;
         for(int i=0; i<threads-1; ++i) {
-            pool.submit([&tens, &tot_sum, &begin_itr, segment_len, &m]{
+            futures.push_back( pool.submit([&tens, &begin_itr, segment_len, &m]{
                 std::lock_guard<std::mutex> lk(m);
                 int sum = std::accumulate(begin_itr, begin_itr + segment_len, 0);
-                tot_sum += sum;
                 std::advance(begin_itr, segment_len);
-            });
+                return sum; })
+            );
         }
-        // wait for the thread pool to be done
-        auto futures = pool.get_futures();
-        for(std::future<void>& fut: futures) {
-            fut.get();
+        for(std::future<int>& fut: futures) {
+            tot_sum += fut.get();
         }
 
         // do the last segment on the main thread
