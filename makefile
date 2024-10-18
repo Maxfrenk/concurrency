@@ -1,5 +1,7 @@
 main.o : lockfree_multimap.hpp threadsafe_hashmap.hpp threadsafe_queue.hpp
 	g++ -c lockfree_multimap.hpp threadsafe_hashmap.hpp threadsafe_queue.hpp
+check_v:
+	g++ -v
 check_queue : threadsafe_queue.hpp
 	g++ -o test_queue test_queue.cpp
 check_hashmap : threadsafe_hashmap.hpp 
